@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>AgriCast v2.0 - Precision Farming</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Top Status Bar -->
+        <div class="status-bar">
+            <span id="locationText" class="location-badge">Getting location...</span>
+            <span id="lastUpdate" class="update-time">--:--</span>
+        </div>
+
+        <!-- Header Banner -->
+        <header class="app-header">
+            <div class="header-title">
+                <h1>🌾 AgriCast</h1>
+                <p>Precision Farming</p>
+            </div>
+            <button id="refreshBtn" class="btn-refresh">🔄</button>
+        </header>
+
+        <!-- Tab Navigation -->
+        <nav class="tab-nav">
+            <button class="tab-btn active" data-tab="overview">Overview</button>
+            <button class="tab-btn" data-tab="forecast">Forecast</button>
+            <button class="tab-btn" data-tab="drought">Drought</button>
+            <button class="tab-btn" data-tab="crops">Crops</button>
+            <button class="tab-btn" data-tab="livestock">Livestock</button>
+            <button class="tab-btn" data-tab="settings">Settings</button>
+        </nav>
+
+        <!-- Main Content Area -->
+        <div class="app-content">
+            <!-- Overview Tab -->
+            <section class="tab-content active" id="overview-tab">
+                <!-- Quick Stats -->
+                <div class="quick-stats">
+                    <div class="stat-card">
+                        <div class="stat-icon">🌡️</div>
+                        <div class="stat-info">
+                            <div class="stat-label">Temperature</div>
+                            <div class="stat-value" id="tempDisplay">--°C</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">💧</div>
+                        <div class="stat-info">
+                            <div class="stat-label">Humidity</div>
+                            <div class="stat-value" id="humidityDisplay">--%</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">💨</div>
+                        <div class="stat-info">
+                            <div class="stat-label">Wind Speed</div>
+                            <div class="stat-value" id="windDisplay">-- m/s</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">🌱</div>
+                        <div class="stat-info">
+                            <div class="stat-label">Soil Moisture</div>
+                            <div class="stat-value" id="moistureDisplay">--%</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Temperature Chart -->
+                <div class="section-card">
+                    <h3>24-Hour Forecast</h3>
+                    <div class="chart-container">
+                        <svg id="tempChart" class="temp-chart" viewBox="0 0 1200 300" preserveAspectRatio="xMidYMid meet">
+                        </svg>
+                    </div>
+                    <p id="chartStatus" class="chart-info">Fetching 24-hour forecast...</p>
+                </div>
+            </section>
+
+            <!-- Forecast Tab -->
+            <section class="tab-content" id="forecast-tab">
+                <!-- 7-Day Forecast -->
+                <div class="section-card">
+                    <h3>📅 7-Day Forecast</h3>
+                    <div class="forecast-grid" id="forecast7">
+                        <div class="forecast-item">Loading forecast...</div>
+                    </div>
+                </div>
+
+                <!-- 14-Day Forecast -->
+                <div class="section-card">
+                    <h3>📊 14-Day Forecast</h3>
+                    <div class="forecast-grid" id="forecast14">
+                        <div class="forecast-item">Loading forecast...</div>
+                    </div>
+                </div>
+
+                <!-- Extended Outlooks -->
+                <div class="section-card">
+                    <h3>🔮 Extended Outlooks</h3>
+                    <div class="outlook-container">
+                        <div class="outlook-item">
+                            <div class="outlook-header">6-10 Day Outlook</div>
+                            <div class="outlook-content" id="outlook610">
+                                <p>Temperature: <span id="out610Temp">--</span></p>
+                                <p>Precipitation: <span id="out610Precip">--</span></p>
+                            </div>
+                        </div>
+                        <div class="outlook-item">
+                            <div class="outlook-header">8-14 Day Outlook</div>
+                            <div class="outlook-content" id="outlook814">
+                                <p>Temperature: <span id="out814Temp">--</span></p>
+                                <p>Precipitation: <span id="out814Precip">--</span></p>
+                            </div>
+                        </div>
+                        <div class="outlook-item">
+                            <div class="outlook-header">3-4 Week Outlook</div>
+                            <div class="outlook-content" id="outlookMonthly">
+                                <p>Temperature: <span id="outMonthlyTemp">--</span></p>
+                                <p>Precipitation: <span id="outMonthlyPrecip">--</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Weather Implications -->
+                <div class="section-card implications-card">
+                    <h3>⚠️ Agricultural Implications</h3>
+                    <div class="implications-text" id="weatherImplications">
+                        <p>Weather implications will be analyzed based on the forecast data...</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Drought Monitor Tab -->
+            <section class="tab-content" id="drought-tab">
+                <div class="section-card drought-status-card">
+                    <h3>🌍 Drought Monitor</h3>
+                    <div class="drought-status" id="droughtStatus">
+                        <p>Loading drought data...</p>
+                    </div>
+                </div>
+
+                <div class="section-card drought-indices-card">
+                    <h3>📊 Drought Indices</h3>
+                    <div class="drought-indices-grid" id="droughtIndices">
+                        <div class="drought-index-item">
+                            <div class="index-label">SPI (12-month)</div>
+                            <div class="index-value" id="spiValue">--</div>
+                            <div class="index-description">Standardized Precipitation Index</div>
+                        </div>
+                        <div class="drought-index-item">
+                            <div class="index-label">PDSI</div>
+                            <div class="index-value" id="pdsiValue">--</div>
+                            <div class="index-description">Palmer Drought Severity Index</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-card drought-severity-card">
+                    <h3>⚠️ Drought Severity</h3>
+                    <div class="severity-levels" id="severityLevels">
+                        <div class="severity-item" id="severityIndicator">
+                            <div class="severity-badge" id="severityBadge">No Drought</div>
+                            <div class="severity-description" id="severityDesc">No drought conditions detected</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-card drought-forecast-card">
+                    <h3>🔮 Drought Forecast</h3>
+                    <div class="drought-outlook" id="droughtForecast">
+                        <p>Drought outlook will be analyzed based on weather forecast...</p>
+                    </div>
+                </div>
+
+                <div class="section-card drought-implications-card">
+                    <h3>🚜 Drought Impact Recommendations</h3>
+                    <div class="drought-implications-text" id="droughtImplications">
+                        <div class="implication-item">
+                            <strong>Irrigation:</strong>
+                            <p id="irrigationRec">Monitor precipitation and plan irrigation schedule accordingly</p>
+                        </div>
+                        <div class="implication-item">
+                            <strong>Crop Management:</strong>
+                            <p id="cropDroughtRec">Adjust planting and management practices based on drought conditions</p>
+                        </div>
+                        <div class="implication-item">
+                            <strong>Livestock:</strong>
+                            <p id="livestockDroughtRec">Monitor water availability and pasture conditions</p>
+                        </div>
+                        <div class="implication-item">
+                            <strong>Soil Health:</strong>
+                            <p id="soilDroughtRec">Implement water conservation practices</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="tab-content" id="crops-tab">
+                <div class="section-card crop-overview">
+                    <div class="crop-header">
+                        <h3 id="cropName">Corn</h3>
+                        <div class="crop-badge" id="cropBadge">Base: 10°C</div>
+                    </div>
+                    <div class="crop-metrics">
+                        <div class="metric-item">
+                            <div class="metric-label">Today's GDD</div>
+                            <div class="metric-value" id="gddToday">-- units</div>
+                        </div>
+                        <div class="metric-item">
+                            <div class="metric-label">Season Total</div>
+                            <div class="metric-value" id="gddSeason">-- units</div>
+                        </div>
+                        <div class="metric-item">
+                            <div class="metric-label">Growth Stage</div>
+                            <div class="metric-value" id="growthStage">Calculating...</div>
+                        </div>
+                    </div>
+                    <div class="progress-section">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progressFill"></div>
+                        </div>
+                        <p class="progress-text" id="progressText">Season Progress: 0%</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Livestock Tab -->
+            <section class="tab-content" id="livestock-tab">
+                <div class="section-card thi-overview">
+                    <h3>Livestock Heat Stress Index</h3>
+                    <div class="thi-display" id="thiDisplay">
+                        <div class="thi-value" id="thiValue">--</div>
+                        <div class="thi-status">THI</div>
+                    </div>
+                    <div class="thi-scale">
+                        <div class="scale-item safe">
+                            <span class="scale-label">&lt;74</span>
+                            <span class="scale-text">Safe</span>
+                        </div>
+                        <div class="scale-item alert">
+                            <span class="scale-label">74-78</span>
+                            <span class="scale-text">Alert</span>
+                        </div>
+                        <div class="scale-item danger">
+                            <span class="scale-label">79-83</span>
+                            <span class="scale-text">Danger</span>
+                        </div>
+                        <div class="scale-item critical">
+                            <span class="scale-label">&gt;83</span>
+                            <span class="scale-text">Critical</span>
+                        </div>
+                    </div>
+                    <div class="thi-recommendation" id="thiRecommendation">
+                        <p id="thiText">Loading recommendation...</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Settings Tab -->
+            <section class="tab-content" id="settings-tab">
+                <div class="section-card settings-card">
+                    <h3>Preferences</h3>
+                    <div class="settings-list">
+                        <div class="setting-item">
+                            <label for="locationSelect">📍 Location</label>
+                            <select id="locationSelect">
+                            <option value="geolocation">🎯 Use My Location</option>
+                    <optgroup label="Canada - Provinces">
+                        <option value="calgary">Calgary, Alberta</option>
+                        <option value="edmonton">Edmonton, Alberta</option>
+                        <option value="vancouver">Vancouver, British Columbia</option>
+                        <option value="victoria">Victoria, British Columbia</option>
+                        <option value="winnipeg">Winnipeg, Manitoba</option>
+                        <option value="fredericton">Fredericton, New Brunswick</option>
+                        <option value="halifax">Halifax, Nova Scotia</option>
+                        <option value="sydney">Sydney, Nova Scotia</option>
+                        <option value="st-johns">St. John's, Newfoundland & Labrador</option>
+                        <option value="toronto">Toronto, Ontario</option>
+                        <option value="ottawa">Ottawa, Ontario</option>
+                        <option value="montreal">Montreal, Quebec</option>
+                        <option value="quebec-city">Quebec City, Quebec</option>
+                        <option value="regina">Regina, Saskatchewan</option>
+                        <option value="saskatoon">Saskatoon, Saskatchewan</option>
+                        <option value="yellowknife">Yellowknife, Northwest Territories</option>
+                        <option value="whitehorse">Whitehorse, Yukon</option>
+                    </optgroup>
+                    <optgroup label="Other">
+                        <option value="new-york">New York City, USA</option>
+                        <option value="los-angeles">Los Angeles, USA</option>
+                        <option value="chicago">Chicago, USA</option>
+                    </optgroup>
+                </select>
+                        </div>
+                        <div class="setting-item">
+                            <label for="unitToggle">🌡️ Temperature Units</label>
+                            <select id="unitToggle">
+                    <option value="celsius">Celsius (°C)</option>
+                    <option value="fahrenheit">Fahrenheit (°F)</option>
+                </select>
+                        <div class="setting-item">
+                            <label for="cropSelect">🌾 Monitor Crop</label>
+                            <select id="cropSelect">
+                                <option value="corn">Corn</option>
+                                <option value="wheat">Wheat</option>
+                                <option value="soybean">Soybean</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
