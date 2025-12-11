@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>AgriCast v2.0 - Precision Farming</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <div class="app-container">
         <!-- Top Status Bar -->
@@ -73,7 +75,8 @@
                 <div class="section-card">
                     <h3>24-Hour Forecast</h3>
                     <div class="chart-container">
-                        <svg id="tempChart" class="temp-chart" viewBox="0 0 1200 300" preserveAspectRatio="xMidYMid meet">
+                        <svg id="tempChart" class="temp-chart" viewBox="0 0 1200 300"
+                            preserveAspectRatio="xMidYMid meet">
                         </svg>
                     </div>
                     <p id="chartStatus" class="chart-info">Fetching 24-hour forecast...</p>
@@ -186,7 +189,8 @@
                         </div>
                         <div class="implication-item">
                             <strong>Crop Management:</strong>
-                            <p id="cropDroughtRec">Adjust planting and management practices based on drought conditions</p>
+                            <p id="cropDroughtRec">Adjust planting and management practices based on drought conditions
+                            </p>
                         </div>
                         <div class="implication-item">
                             <strong>Livestock:</strong>
@@ -225,6 +229,103 @@
                             <div class="progress-fill" id="progressFill"></div>
                         </div>
                         <p class="progress-text" id="progressText">Season Progress: 0%</p>
+                    </div>
+                </div>
+
+                <!-- Growing & Harvesting Season Overview -->
+                <div class="section-card season-overview-card">
+                    <h3>📅 Growing &amp; Harvesting Season</h3>
+                    <div class="season-timeline">
+                        <div class="season-phase planting">
+                            <div class="phase-header">
+                                <span class="phase-icon">🌱</span>
+                                <span class="phase-title">Planting Window</span>
+                            </div>
+                            <div class="phase-dates" id="plantingDates">--</div>
+                            <div class="phase-status" id="plantingStatus">--</div>
+                        </div>
+                        <div class="season-phase growing">
+                            <div class="phase-header">
+                                <span class="phase-icon">🌿</span>
+                                <span class="phase-title">Growing Season</span>
+                            </div>
+                            <div class="phase-dates" id="growingDates">--</div>
+                            <div class="phase-status" id="growingStatus">--</div>
+                        </div>
+                        <div class="season-phase harvest">
+                            <div class="phase-header">
+                                <span class="phase-icon">🌾</span>
+                                <span class="phase-title">Harvest Window</span>
+                            </div>
+                            <div class="phase-dates" id="harvestDates">--</div>
+                            <div class="phase-status" id="harvestStatus">--</div>
+                        </div>
+                    </div>
+                    <div class="season-summary" id="seasonSummary">
+                        <p>Loading season information...</p>
+                    </div>
+                </div>
+
+                <!-- Historical Year Comparison -->
+                <div class="section-card historical-comparison-card">
+                    <h3>📊 Historical Year Comparison</h3>
+                    <div class="comparison-table">
+                        <div class="comparison-header">
+                            <span>Year</span>
+                            <span>GDD Total</span>
+                            <span>Deviation</span>
+                            <span>Yield Index</span>
+                        </div>
+                        <div class="comparison-row current-year" id="year2024">
+                            <span class="year-label">2024</span>
+                            <span class="gdd-value" id="gdd2024">--</span>
+                            <span class="deviation" id="dev2024">--</span>
+                            <span class="yield-index" id="yield2024">--</span>
+                        </div>
+                        <div class="comparison-row" id="year2023">
+                            <span class="year-label">2023</span>
+                            <span class="gdd-value" id="gdd2023">--</span>
+                            <span class="deviation" id="dev2023">--</span>
+                            <span class="yield-index" id="yield2023">--</span>
+                        </div>
+                        <div class="comparison-row" id="year2022">
+                            <span class="year-label">2022</span>
+                            <span class="gdd-value" id="gdd2022">--</span>
+                            <span class="deviation" id="dev2022">--</span>
+                            <span class="yield-index" id="yield2022">--</span>
+                        </div>
+                        <div class="comparison-row" id="year2021">
+                            <span class="year-label">2021</span>
+                            <span class="gdd-value" id="gdd2021">--</span>
+                            <span class="deviation" id="dev2021">--</span>
+                            <span class="yield-index" id="yield2021">--</span>
+                        </div>
+                        <div class="comparison-row" id="year2020">
+                            <span class="year-label">2020</span>
+                            <span class="gdd-value" id="gdd2020">--</span>
+                            <span class="deviation" id="dev2020">--</span>
+                            <span class="yield-index" id="yield2020">--</span>
+                        </div>
+                        <div class="comparison-row average-row">
+                            <span class="year-label">5-Yr Avg</span>
+                            <span class="gdd-value" id="gddAvg">--</span>
+                            <span class="deviation">Baseline</span>
+                            <span class="yield-index" id="yieldAvg">--</span>
+                        </div>
+                    </div>
+                    <div class="historical-insight" id="historicalInsight">
+                        <p>Loading historical analysis...</p>
+                    </div>
+                </div>
+
+                <!-- Season Recommendations -->
+                <div class="section-card season-recommendations-card">
+                    <h3>💡 Season Recommendations</h3>
+                    <div class="recommendations-list" id="seasonRecommendations">
+                        <div class="recommendation-item">
+                            <span class="rec-icon">📋</span>
+                            <p>Loading recommendations based on current conditions...</p>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -269,39 +370,228 @@
                         <div class="setting-item">
                             <label for="locationSelect">📍 Location</label>
                             <select id="locationSelect">
-                            <option value="geolocation">🎯 Use My Location</option>
-                    <optgroup label="Canada - Provinces">
-                        <option value="calgary">Calgary, Alberta</option>
-                        <option value="edmonton">Edmonton, Alberta</option>
-                        <option value="vancouver">Vancouver, British Columbia</option>
-                        <option value="victoria">Victoria, British Columbia</option>
-                        <option value="winnipeg">Winnipeg, Manitoba</option>
-                        <option value="fredericton">Fredericton, New Brunswick</option>
-                        <option value="halifax">Halifax, Nova Scotia</option>
-                        <option value="sydney">Sydney, Nova Scotia</option>
-                        <option value="st-johns">St. John's, Newfoundland & Labrador</option>
-                        <option value="toronto">Toronto, Ontario</option>
-                        <option value="ottawa">Ottawa, Ontario</option>
-                        <option value="montreal">Montreal, Quebec</option>
-                        <option value="quebec-city">Quebec City, Quebec</option>
-                        <option value="regina">Regina, Saskatchewan</option>
-                        <option value="saskatoon">Saskatoon, Saskatchewan</option>
-                        <option value="yellowknife">Yellowknife, Northwest Territories</option>
-                        <option value="whitehorse">Whitehorse, Yukon</option>
-                    </optgroup>
-                    <optgroup label="Other">
-                        <option value="new-york">New York City, USA</option>
-                        <option value="los-angeles">Los Angeles, USA</option>
-                        <option value="chicago">Chicago, USA</option>
-                    </optgroup>
-                </select>
+                                <option value="geolocation">🎯 Use My Location</option>
+                                <optgroup label="Canada">
+                                    <option value="calgary">Calgary, Alberta</option>
+                                    <option value="edmonton">Edmonton, Alberta</option>
+                                    <option value="vancouver">Vancouver, British Columbia</option>
+                                    <option value="victoria">Victoria, British Columbia</option>
+                                    <option value="winnipeg">Winnipeg, Manitoba</option>
+                                    <option value="fredericton">Fredericton, New Brunswick</option>
+                                    <option value="halifax">Halifax, Nova Scotia</option>
+                                    <option value="sydney">Sydney, Nova Scotia</option>
+                                    <option value="st-johns">St. John's, Newfoundland &amp; Labrador</option>
+                                    <option value="toronto">Toronto, Ontario</option>
+                                    <option value="ottawa">Ottawa, Ontario</option>
+                                    <option value="montreal">Montreal, Quebec</option>
+                                    <option value="quebec-city">Quebec City, Quebec</option>
+                                    <option value="regina">Regina, Saskatchewan</option>
+                                    <option value="saskatoon">Saskatoon, Saskatchewan</option>
+                                    <option value="yellowknife">Yellowknife, Northwest Territories</option>
+                                    <option value="whitehorse">Whitehorse, Yukon</option>
+                                </optgroup>
+                                <optgroup label="USA - Top 25 Cities">
+                                    <option value="new-york">New York City, NY</option>
+                                    <option value="los-angeles">Los Angeles, CA</option>
+                                    <option value="chicago">Chicago, IL</option>
+                                    <option value="houston">Houston, TX</option>
+                                    <option value="phoenix">Phoenix, AZ</option>
+                                    <option value="philadelphia">Philadelphia, PA</option>
+                                    <option value="san-antonio">San Antonio, TX</option>
+                                    <option value="san-diego">San Diego, CA</option>
+                                    <option value="dallas">Dallas, TX</option>
+                                    <option value="san-jose">San Jose, CA</option>
+                                    <option value="austin">Austin, TX</option>
+                                    <option value="jacksonville">Jacksonville, FL</option>
+                                    <option value="fort-worth">Fort Worth, TX</option>
+                                    <option value="columbus">Columbus, OH</option>
+                                    <option value="charlotte">Charlotte, NC</option>
+                                    <option value="san-francisco">San Francisco, CA</option>
+                                    <option value="indianapolis">Indianapolis, IN</option>
+                                    <option value="seattle">Seattle, WA</option>
+                                    <option value="denver">Denver, CO</option>
+                                    <option value="washington-dc">Washington, DC</option>
+                                    <option value="boston">Boston, MA</option>
+                                    <option value="el-paso">El Paso, TX</option>
+                                    <option value="nashville">Nashville, TN</option>
+                                    <option value="detroit">Detroit, MI</option>
+                                    <option value="oklahoma-city">Oklahoma City, OK</option>
+                                </optgroup>
+                                <optgroup label="USA - Cities 26-50">
+                                    <option value="portland">Portland, OR</option>
+                                    <option value="las-vegas">Las Vegas, NV</option>
+                                    <option value="memphis">Memphis, TN</option>
+                                    <option value="louisville">Louisville, KY</option>
+                                    <option value="baltimore">Baltimore, MD</option>
+                                    <option value="milwaukee">Milwaukee, WI</option>
+                                    <option value="albuquerque">Albuquerque, NM</option>
+                                    <option value="tucson">Tucson, AZ</option>
+                                    <option value="fresno">Fresno, CA</option>
+                                    <option value="mesa">Mesa, AZ</option>
+                                    <option value="sacramento">Sacramento, CA</option>
+                                    <option value="atlanta">Atlanta, GA</option>
+                                    <option value="kansas-city">Kansas City, MO</option>
+                                    <option value="colorado-springs">Colorado Springs, CO</option>
+                                    <option value="omaha">Omaha, NE</option>
+                                    <option value="raleigh">Raleigh, NC</option>
+                                    <option value="miami">Miami, FL</option>
+                                    <option value="long-beach">Long Beach, CA</option>
+                                    <option value="virginia-beach">Virginia Beach, VA</option>
+                                    <option value="oakland">Oakland, CA</option>
+                                    <option value="minneapolis">Minneapolis, MN</option>
+                                    <option value="tulsa">Tulsa, OK</option>
+                                    <option value="tampa">Tampa, FL</option>
+                                    <option value="arlington-tx">Arlington, TX</option>
+                                    <option value="new-orleans">New Orleans, LA</option>
+                                </optgroup>
+                                <optgroup label="USA - Cities 51-75">
+                                    <option value="wichita">Wichita, KS</option>
+                                    <option value="cleveland">Cleveland, OH</option>
+                                    <option value="bakersfield">Bakersfield, CA</option>
+                                    <option value="aurora">Aurora, CO</option>
+                                    <option value="anaheim">Anaheim, CA</option>
+                                    <option value="honolulu">Honolulu, HI</option>
+                                    <option value="santa-ana">Santa Ana, CA</option>
+                                    <option value="riverside">Riverside, CA</option>
+                                    <option value="corpus-christi">Corpus Christi, TX</option>
+                                    <option value="lexington">Lexington, KY</option>
+                                    <option value="stockton">Stockton, CA</option>
+                                    <option value="henderson">Henderson, NV</option>
+                                    <option value="saint-paul">Saint Paul, MN</option>
+                                    <option value="st-louis">St. Louis, MO</option>
+                                    <option value="cincinnati">Cincinnati, OH</option>
+                                    <option value="pittsburgh">Pittsburgh, PA</option>
+                                    <option value="greensboro">Greensboro, NC</option>
+                                    <option value="anchorage">Anchorage, AK</option>
+                                    <option value="plano">Plano, TX</option>
+                                    <option value="lincoln">Lincoln, NE</option>
+                                    <option value="orlando">Orlando, FL</option>
+                                    <option value="irvine">Irvine, CA</option>
+                                    <option value="newark">Newark, NJ</option>
+                                    <option value="toledo">Toledo, OH</option>
+                                    <option value="durham">Durham, NC</option>
+                                </optgroup>
+                                <optgroup label="USA - Cities 76-100">
+                                    <option value="chula-vista">Chula Vista, CA</option>
+                                    <option value="fort-wayne">Fort Wayne, IN</option>
+                                    <option value="jersey-city">Jersey City, NJ</option>
+                                    <option value="st-petersburg">St. Petersburg, FL</option>
+                                    <option value="laredo">Laredo, TX</option>
+                                    <option value="madison">Madison, WI</option>
+                                    <option value="chandler">Chandler, AZ</option>
+                                    <option value="buffalo">Buffalo, NY</option>
+                                    <option value="lubbock">Lubbock, TX</option>
+                                    <option value="scottsdale">Scottsdale, AZ</option>
+                                    <option value="reno">Reno, NV</option>
+                                    <option value="glendale-az">Glendale, AZ</option>
+                                    <option value="gilbert">Gilbert, AZ</option>
+                                    <option value="winston-salem">Winston-Salem, NC</option>
+                                    <option value="north-las-vegas">North Las Vegas, NV</option>
+                                    <option value="norfolk">Norfolk, VA</option>
+                                    <option value="chesapeake">Chesapeake, VA</option>
+                                    <option value="garland">Garland, TX</option>
+                                    <option value="irving">Irving, TX</option>
+                                    <option value="hialeah">Hialeah, FL</option>
+                                    <option value="fremont">Fremont, CA</option>
+                                    <option value="boise">Boise, ID</option>
+                                    <option value="richmond">Richmond, VA</option>
+                                    <option value="baton-rouge">Baton Rouge, LA</option>
+                                    <option value="spokane">Spokane, WA</option>
+                                </optgroup>
+                                <optgroup label="USA - More Cities">
+                                    <option value="des-moines">Des Moines, IA</option>
+                                    <option value="tacoma">Tacoma, WA</option>
+                                    <option value="san-bernardino">San Bernardino, CA</option>
+                                    <option value="modesto">Modesto, CA</option>
+                                    <option value="fontana">Fontana, CA</option>
+                                    <option value="santa-clarita">Santa Clarita, CA</option>
+                                    <option value="birmingham">Birmingham, AL</option>
+                                    <option value="oxnard">Oxnard, CA</option>
+                                    <option value="fayetteville">Fayetteville, NC</option>
+                                    <option value="moreno-valley">Moreno Valley, CA</option>
+                                    <option value="rochester">Rochester, NY</option>
+                                    <option value="glendale-ca">Glendale, CA</option>
+                                    <option value="huntington-beach">Huntington Beach, CA</option>
+                                    <option value="salt-lake-city">Salt Lake City, UT</option>
+                                    <option value="grand-rapids">Grand Rapids, MI</option>
+                                    <option value="amarillo">Amarillo, TX</option>
+                                    <option value="yonkers">Yonkers, NY</option>
+                                    <option value="aurora-il">Aurora, IL</option>
+                                    <option value="montgomery">Montgomery, AL</option>
+                                    <option value="akron">Akron, OH</option>
+                                    <option value="little-rock">Little Rock, AR</option>
+                                    <option value="huntsville">Huntsville, AL</option>
+                                    <option value="augusta">Augusta, GA</option>
+                                    <option value="grand-prairie">Grand Prairie, TX</option>
+                                    <option value="columbus-ga">Columbus, GA</option>
+                                    <option value="overland-park">Overland Park, KS</option>
+                                    <option value="tallahassee">Tallahassee, FL</option>
+                                    <option value="cape-coral">Cape Coral, FL</option>
+                                    <option value="mobile">Mobile, AL</option>
+                                    <option value="knoxville">Knoxville, TN</option>
+                                    <option value="shreveport">Shreveport, LA</option>
+                                    <option value="worcester">Worcester, MA</option>
+                                    <option value="ontario-ca">Ontario, CA</option>
+                                    <option value="providence">Providence, RI</option>
+                                    <option value="newport-news">Newport News, VA</option>
+                                    <option value="rancho-cucamonga">Rancho Cucamonga, CA</option>
+                                    <option value="santa-rosa">Santa Rosa, CA</option>
+                                    <option value="peoria-az">Peoria, AZ</option>
+                                    <option value="oceanside">Oceanside, CA</option>
+                                    <option value="elk-grove">Elk Grove, CA</option>
+                                    <option value="salem">Salem, OR</option>
+                                    <option value="pembroke-pines">Pembroke Pines, FL</option>
+                                    <option value="eugene">Eugene, OR</option>
+                                    <option value="garden-grove">Garden Grove, CA</option>
+                                    <option value="cary">Cary, NC</option>
+                                    <option value="fort-collins">Fort Collins, CO</option>
+                                    <option value="corona">Corona, CA</option>
+                                    <option value="springfield-mo">Springfield, MO</option>
+                                    <option value="jackson-ms">Jackson, MS</option>
+                                    <option value="alexandria">Alexandria, VA</option>
+                                    <option value="hayward">Hayward, CA</option>
+                                    <option value="clarksville">Clarksville, TN</option>
+                                    <option value="lakewood">Lakewood, CO</option>
+                                    <option value="lancaster">Lancaster, CA</option>
+                                    <option value="salinas">Salinas, CA</option>
+                                    <option value="palmdale">Palmdale, CA</option>
+                                    <option value="hollywood">Hollywood, FL</option>
+                                    <option value="springfield-ma">Springfield, MA</option>
+                                    <option value="macon">Macon, GA</option>
+                                    <option value="pasadena-tx">Pasadena, TX</option>
+                                    <option value="pomona">Pomona, CA</option>
+                                    <option value="kansas-city-ks">Kansas City, KS</option>
+                                    <option value="escondido">Escondido, CA</option>
+                                    <option value="sunnyvale">Sunnyvale, CA</option>
+                                    <option value="torrance">Torrance, CA</option>
+                                    <option value="bridgeport">Bridgeport, CT</option>
+                                    <option value="savannah">Savannah, GA</option>
+                                    <option value="mcallen">McAllen, TX</option>
+                                    <option value="pasadena-ca">Pasadena, CA</option>
+                                    <option value="mesquite">Mesquite, TX</option>
+                                    <option value="syracuse">Syracuse, NY</option>
+                                    <option value="midland">Midland, TX</option>
+                                    <option value="dayton">Dayton, OH</option>
+                                    <option value="murfreesboro">Murfreesboro, TN</option>
+                                </optgroup>
+                            </select>
                         </div>
                         <div class="setting-item">
                             <label for="unitToggle">🌡️ Temperature Units</label>
                             <select id="unitToggle">
-                    <option value="celsius">Celsius (°C)</option>
-                    <option value="fahrenheit">Fahrenheit (°F)</option>
-                </select>
+                                <option value="celsius">Celsius (°C)</option>
+                                <option value="fahrenheit">Fahrenheit (°F)</option>
+                            </select>
+                        </div>
+                        <div class="setting-item">
+                            <label for="windUnitToggle">💨 Wind Speed Units</label>
+                            <select id="windUnitToggle">
+                                <option value="ms">Meters per second (m/s)</option>
+                                <option value="kmh">Kilometers per hour (km/h)</option>
+                                <option value="mph">Miles per hour (mph)</option>
+                                <option value="knots">Knots (kn)</option>
+                            </select>
+                        </div>
                         <div class="setting-item">
                             <label for="cropSelect">🌾 Monitor Crop</label>
                             <select id="cropSelect">
@@ -311,6 +601,10 @@
                             </select>
                         </div>
                     </div>
+                    <div class="settings-actions">
+                        <button id="saveSettingsBtn" class="btn-save-settings">💾 Save Settings</button>
+                        <span id="saveStatus" class="save-status"></span>
+                    </div>
                 </div>
             </section>
         </div>
@@ -318,4 +612,5 @@
 
     <script src="script.js"></script>
 </body>
+
 </html>

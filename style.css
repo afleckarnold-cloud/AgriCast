@@ -21,7 +21,8 @@
     box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
     width: 100%;
     height: 100%;
 }
@@ -44,7 +45,7 @@ body::before {
     right: 0;
     bottom: 0;
     background: radial-gradient(circle at 20% 50%, rgba(46, 204, 113, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(52, 152, 219, 0.1) 0%, transparent 50%);
+        radial-gradient(circle at 80% 80%, rgba(52, 152, 219, 0.1) 0%, transparent 50%);
     pointer-events: none;
     z-index: 0;
 }
@@ -89,7 +90,7 @@ body::before {
 /* ===== App Header ===== */
 .app-header {
     background: linear-gradient(135deg, rgba(46, 204, 113, 0.15) 0%, rgba(52, 152, 219, 0.15) 100%),
-                var(--bg-glass);
+        var(--bg-glass);
     backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--border);
     padding: 16px 20px;
@@ -105,6 +106,7 @@ body::before {
         opacity: 0;
         transform: translateY(-20px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -222,6 +224,7 @@ body::before {
         opacity: 0;
         transform: translateY(10px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -424,8 +427,15 @@ body::before {
 }
 
 @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.7; }
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.7;
+    }
 }
 
 .thi-status {
@@ -1014,3 +1024,408 @@ html {
     }
 }
 
+/* ===== Settings Actions ===== */
+.settings-actions {
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.btn-save-settings {
+    padding: 14px 28px;
+    background: linear-gradient(135deg, var(--primary) 0%, #27ae60 100%);
+    border: none;
+    border-radius: 12px;
+    color: #fff;
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-save-settings:hover {
+    background: linear-gradient(135deg, #27ae60 0%, var(--primary) 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(46, 204, 113, 0.4);
+}
+
+.btn-save-settings:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 10px rgba(46, 204, 113, 0.3);
+}
+
+.save-status {
+    font-size: 0.9em;
+    font-weight: 500;
+    padding: 8px 16px;
+    border-radius: 8px;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.save-status.visible {
+    opacity: 1;
+}
+
+.save-status.success {
+    color: var(--primary);
+    background: rgba(46, 204, 113, 0.15);
+    border: 1px solid rgba(46, 204, 113, 0.3);
+}
+
+.save-status.saving {
+    color: var(--secondary);
+    background: rgba(52, 152, 219, 0.15);
+    border: 1px solid rgba(52, 152, 219, 0.3);
+}
+
+@keyframes saveSuccess {
+    0% {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.save-status.visible {
+    animation: saveSuccess 0.4s ease-out forwards;
+}
+
+@media (max-width: 480px) {
+    .settings-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .btn-save-settings {
+        justify-content: center;
+    }
+
+    .save-status {
+        text-align: center;
+    }
+}
+
+/* ===== Season Overview Styles ===== */
+.season-overview-card {
+    background: linear-gradient(135deg, rgba(46, 204, 113, 0.1) 0%, rgba(52, 152, 219, 0.1) 100%);
+}
+
+.season-timeline {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.season-phase {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
+    padding: 16px;
+    border-left: 4px solid var(--primary);
+    transition: all 0.3s ease;
+}
+
+.season-phase:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.season-phase.planting {
+    border-left-color: #27ae60;
+}
+
+.season-phase.growing {
+    border-left-color: #2ecc71;
+}
+
+.season-phase.harvest {
+    border-left-color: #f39c12;
+}
+
+.phase-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.phase-icon {
+    font-size: 1.5em;
+}
+
+.phase-title {
+    font-weight: 600;
+    color: var(--text-primary);
+    font-size: 0.95em;
+}
+
+.phase-dates {
+    font-size: 0.9em;
+    color: var(--primary);
+    font-weight: 500;
+    margin-bottom: 6px;
+}
+
+.phase-status {
+    font-size: 0.8em;
+    padding: 4px 10px;
+    border-radius: 12px;
+    display: inline-block;
+    font-weight: 500;
+}
+
+.phase-status.upcoming {
+    background: rgba(52, 152, 219, 0.2);
+    color: var(--secondary);
+}
+
+.phase-status.active {
+    background: rgba(46, 204, 113, 0.2);
+    color: var(--primary);
+}
+
+.phase-status.completed {
+    background: rgba(149, 165, 166, 0.2);
+    color: var(--text-secondary);
+}
+
+.season-summary {
+    margin-top: 16px;
+}
+
+.summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 12px;
+}
+
+.summary-item {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 12px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.summary-label {
+    display: block;
+    font-size: 0.75em;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+}
+
+.summary-value {
+    display: block;
+    font-size: 1.1em;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+/* ===== Historical Comparison Styles ===== */
+.historical-comparison-card {
+    background: linear-gradient(135deg, rgba(52, 152, 219, 0.1) 0%, rgba(155, 89, 182, 0.1) 100%);
+}
+
+.comparison-table {
+    margin-bottom: 16px;
+}
+
+.comparison-header {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr 1fr 1fr;
+    gap: 8px;
+    padding: 12px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 10px 10px 0 0;
+    font-weight: 600;
+    font-size: 0.8em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+}
+
+.comparison-row {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr 1fr 1fr;
+    gap: 8px;
+    padding: 12px;
+    background: rgba(0, 0, 0, 0.15);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.3s ease;
+}
+
+.comparison-row:hover {
+    background: rgba(0, 0, 0, 0.25);
+}
+
+.comparison-row.current-year {
+    background: rgba(46, 204, 113, 0.15);
+    border-left: 3px solid var(--primary);
+}
+
+.comparison-row.average-row {
+    background: rgba(52, 152, 219, 0.15);
+    font-weight: 600;
+    border-radius: 0 0 10px 10px;
+}
+
+.year-label {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.gdd-value {
+    color: var(--primary);
+    font-weight: 500;
+}
+
+.deviation {
+    font-weight: 500;
+    font-size: 0.9em;
+}
+
+.deviation.positive {
+    color: #2ecc71;
+}
+
+.deviation.negative {
+    color: #e74c3c;
+}
+
+.yield-index {
+    font-weight: 600;
+}
+
+.yield-index.above {
+    color: #2ecc71;
+}
+
+.yield-index.below {
+    color: #e74c3c;
+}
+
+.historical-insight {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 16px;
+    border-radius: 12px;
+    border-left: 4px solid var(--secondary);
+}
+
+.insight-content p {
+    margin: 10px 0;
+    font-size: 0.9em;
+    line-height: 1.6;
+    color: var(--text-secondary);
+}
+
+.insight-content strong {
+    color: var(--text-primary);
+}
+
+.insight-content .above {
+    color: #2ecc71;
+    font-weight: 600;
+}
+
+.insight-content .below {
+    color: #e74c3c;
+    font-weight: 600;
+}
+
+/* ===== Season Recommendations Styles ===== */
+.season-recommendations-card {
+    background: linear-gradient(135deg, rgba(243, 156, 18, 0.1) 0%, rgba(230, 126, 34, 0.1) 100%);
+}
+
+.recommendations-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.recommendation-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 14px;
+    border-radius: 10px;
+    border-left: 3px solid var(--warning);
+    transition: all 0.3s ease;
+}
+
+.recommendation-item:hover {
+    background: rgba(0, 0, 0, 0.3);
+    transform: translateX(4px);
+}
+
+.rec-icon {
+    font-size: 1.4em;
+    flex-shrink: 0;
+}
+
+.recommendation-item p {
+    margin: 0;
+    font-size: 0.9em;
+    line-height: 1.5;
+    color: var(--text-secondary);
+}
+
+/* ===== Responsive Styles for Crop Sections ===== */
+@media (max-width: 768px) {
+    .season-timeline {
+        grid-template-columns: 1fr;
+    }
+
+    .comparison-header,
+    .comparison-row {
+        grid-template-columns: 1fr 1fr;
+        gap: 4px;
+    }
+
+    .comparison-header span:nth-child(3),
+    .comparison-header span:nth-child(4),
+    .comparison-row span:nth-child(3),
+    .comparison-row span:nth-child(4) {
+        display: none;
+    }
+
+    .summary-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .season-phase {
+        padding: 12px;
+    }
+
+    .phase-icon {
+        font-size: 1.2em;
+    }
+
+    .summary-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .recommendation-item {
+        padding: 12px;
+    }
+}
