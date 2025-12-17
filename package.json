@@ -1,0 +1,17 @@
+{
+  "name": "agricast",
+  "version": "1.0.0",
+  "description": "AgriCast - Precision Farming Weather App",
+  "main": "script.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "firebase": "^12.6.0"
+  },
+  "devDependencies": {
+    "vite": "^5.0.0"
+  }
+}
